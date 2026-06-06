@@ -34,10 +34,17 @@ def main() -> None:
     # Phase 2 – generate the final report
     report = generate_report(query, findings)
 
-    print("\n" + "=" * 80 + "\n")
-    print(report)
+    # Persist the report using the storage layer
+    from storage.storage import save_report
+
+    try:
+        saved_path = save_report(query, report, findings)
+        print("Research completed.")
+        print("Report saved:")
+        print(saved_path)
+    except Exception as e:
+        print(f"Failed to write report {e}")
 
 
 if __name__ == "__main__":
     main()
-

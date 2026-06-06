@@ -12,7 +12,7 @@ def generate(prompt: str):
                 "stream": False,
             },
             stream=True,
-            timeout=180,
+            timeout=270,
         )
 
         response.raise_for_status()

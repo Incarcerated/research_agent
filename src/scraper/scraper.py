@@ -34,7 +34,8 @@ def extract_trafilatura(html: str):
         html,
         include_comments=False,
         include_tables=False,
-        favor_recall=True
+        favor_recall=True,
+        include_formatting=True
     )
 
 
@@ -42,7 +43,11 @@ def extract_trafilatura(html: str):
 # Step 3: Readability fallback
 # -----------------------------
 def extract_readability(html: str):
-    doc = Document(html)
+    doc = Document(
+        html,
+        min_text_length=200,
+        retry_length=400
+       )
     content_html = doc.summary()
     return BeautifulSoup(content_html, "html.parser").get_text()
 

@@ -94,18 +94,4 @@ def research(query: str, max_results: int = 10) -> List[Dict[str, str]]:
 
     _log(f"\n🔚 Research completed – {len(findings)} sources collected.")
 
-    # -----------------------------
-    # 💾 SAVE TO PROJECT ROOT
-    # -----------------------------
-    output_path = Path(__file__).resolve().parents[2] / "research_output.json"
-
-    try:
-        with open(output_path, "w", encoding="utf-8") as f:
-            json.dump(findings, f, ensure_ascii=False, indent=2)
-
-        _log(f"💾 Results saved to: {output_path}")
-
-    except Exception as e:
-        _log(f"[ERROR] Failed to save file: {e}")
-
     return findings

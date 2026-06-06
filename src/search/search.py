@@ -21,7 +21,8 @@ def search_tavily(query: str, max_results: int = 5):
 
     response = tavily_client.search(
         query=query,
-        max_results=max_results
+        max_results=max_results,
+        search_depth="advanced"
     )
 
     # Normalize Tavily results into same format as DDG
@@ -78,4 +79,3 @@ def search_web(query: str, max_results: int = 5):
             "error": str(e),
             "results": []
         }
-    

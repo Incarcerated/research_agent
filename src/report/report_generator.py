@@ -23,29 +23,38 @@ def _build_prompt(query: str, research_data: List[Dict[str, str]]) -> str:
         for item in research_data
     )
 
+    # The prompt now asks the model to elaborate, cite sources inline, and ensure depth.
     return f"""
-You are an expert researcher. Using the information below, write a comprehensive research report.
+You are an expert researcher tasked with producing a **detailed, accurate, and extensive** research report.
 
-Query: {query}
+Use the information provided below. For each section, expand on the findings, provide analysis, and where appropriate include direct quotations or data points from the sources. Cite sources inline using the format `[Title](URL)`.
 
-Sources (title, URL and summary):
+**Query:** {query}
+
+**Sources (title, URL and summary):**
 {sources}
 
-Report format (use exactly these markdown headings):
+**Report format (use exactly these markdown headings and maintain this order):**
 
 # Executive Summary
+Summarize the overall answer to the query, highlighting the most critical insights.
 
 # Key Findings
+List the top 5‑7 findings, each with a brief explanation and inline citation.
 
 # Common Themes
+Identify patterns or recurring ideas across sources, providing synthesis.
 
 # Recommendations
+Offer actionable recommendations based on the findings.
 
 # Conclusion
+Conclude with a concise wrap‑up that ties back to the original query.
 
 # References
+List full citations for each source used, formatted as `- Title (URL)`.
 
-Provide the report in plain markdown text without any extra commentary.
+Provide the report **as plain markdown** without any additional commentary or pre‑amble.
 """
 
 
@@ -63,4 +72,3 @@ def generate_report(query: str, research_data: List[Dict[str, str]]) -> str:
         return generate(prompt)
     except Exception as exc:  # pragma: no cover – defensive
         return f"Report generation failed: {exc}"
-
